@@ -1,0 +1,61 @@
+
+                   &OBSCURE
+
+                   by Uladox
+* Prologue
+  CLOCK: [2015-08-30 Sun 21:09]--[2015-08-30 Sun 22:12] =>  1:03
+  This is a set of strange knowledge for the aspiring
+  systems programmer. Here you will find the sum of my
+  research, but be warned as it contains a highly
+  dense amount as material designed to change your view
+  of representation. In this book you will find code as data,
+  monads, dependent types, continuations, and a slew of
+  obscure references. Be warned that these in the latter
+  parts you will find untested methodologies. Please,
+  have fun!
+* Conventions
+  ~ is used for code
+  " is used for a string
+* Lambda Calculus
+* Programs are Proofs
+  CLOCK: [2015-08-30 Sun 21:08]--[2015-08-30 Sun 21:09] =>  0:01
+** Untyped Lambda Calculus
+
+  Imagine you ran this program: ~(λx.x * 3) 5~
+
+  It would return 15, you could say that the computer
+  proved this program returns 15. If 5 is subsituted 
+  for y like so: ~(λx.x * 3) y~ then running the program
+  the computer could prove for some y that the program
+  returns 3 times some y. What it can't prove is that
+  for any value of x, we will get something assured,
+  a class of values (it can't even say we would get
+  an number given a number). We could go case by case,
+  but who wants to do that? Not use natch and rally.
+
+  The computer can only proof things case by case.
+** Typed Lambda Calculus
+   ~x~ is of type number
+   ~5~ is of type number
+   ~(λx.x * 3)~ is of type number implies number
+   Q. What type can the computer figure out ~(λx.x * 3) 5~ is?
+   A. A number!
+
+   As most programmers are aware, we have types systems.
+   Type systems are not just things to "limit your freedom",
+   they give valuable information (often only at compile time).
+   Type systems can be used, given our components have types,
+   to construct things that the computer can prove (lots of
+   languages do this at compile time, even C) even at run
+   time! To better understand the concept see [[http://homepages.inf.ed.ac.uk/wadler/papers/frege/frege.pdf][this]].
+** Into the obscure, dependent types
+   So how do we represent division, it can't take
+   zero as a divisor! We could have a special type 
+   denoting non-zero having division be defined
+   as a function that takes a number and something
+   of the special non-zero type. The annoyance is
+   if we wanted non-one or non-two or non-three or etc,
+   there must be something better! If only it could
+   be of type not some number, but that would include
+   values! Welcome to dependent types.
+   

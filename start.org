@@ -1,0 +1,90 @@
+       AMPERSAND OBSCURE
+      AN OBSCURE REFERENCE
+           by Uladox
+
+     [[./emacs-icon.png]] 
+Click on link or press "C-c C-o" 
+on it to enter [[elisp:(org-sbe startup)][Ampersand Obscure]].
+
+Write yes on the yes or no prompt(s)
+and "%" for what the comment should
+be defined as.
+
+* The inner workings of this page
+#+STARTUP: hideblocks inlineimages
+(org-toggle-inline-images)
+
+#+name: startup
+#+begin_src emacs-lisp :results output silent :var s=setup_music m=music
+  (switch-to-buffer (get-buffer-create "foo"))
+  (insert "Are ")
+  (sit-for 1.5)
+  (insert "you ")
+  (sit-for 1.5)
+  (insert "going ")
+  (sit-for 1.5)
+  (insert "scar")
+  (sit-for 1.5)
+  (kill-buffer)
+#+end_src
+
+#+name: setup_music
+#+begin_src emacs-lisp :results output silent
+  ;; enable prompt-free code running
+  (setq org-confirm-babel-evaluate nil        ;; for running code blocks
+        org-confirm-elisp-link-function nil   ;; for elisp links
+        org-confirm-shell-link-function nil)  ;; for shell links
+  ;; enable lilypond
+  (org-babel-do-load-languages
+    'org-babel-load-languages
+    '((emacs-lisp . t)
+      (sh t)
+      (org t)
+      (lilypond t)))
+  (setq org-babel-lilypond-arrange-mode t)
+  (setq org-babel-lilypond-play-midi-post-tangle t)
+  (setq org-babel-lilypond-display-pdf-post-tangle nil)
+#+end_src
+
+#+name: music
+#+begin_src lilypond :file Mixolydian.esp :results output silent
+  \score {
+    \new Staff <<
+      \new Voice \relative c''' {
+        \set midiInstrument = #"flute"
+        \voiceOne
+        \key g \major
+        \time 2/2
+        r2 g-"Flute" ~
+        g fis ~
+        fis4 g8 fis e2 ~
+        e4 d8 cis d2
+      }
+      \new Voice \relative c'' {
+        \set midiInstrument = #"clarinet"
+        \voiceTwo
+        b1-"Clarinet"
+        a2. b8 a
+        g2. fis8 e
+        fis2 r
+      }
+    >>
+    \layout { }
+    \midi {
+      \context {
+        \Staff
+        \remove "Staff_performer"
+      }
+      \context {
+        \Voice
+        \consists "Staff_performer"      
+      }
+      \context {
+        \Score
+        tempoWholesPerMinute = #(ly:make-moment 72 2)
+      }
+    }
+  }
+#+end_src
+
+[[http://emacs.stackexchange.com/questions/2483/referring-to-the-org-babel-src-block-name-from-within-the-script][For more on org blocks]]

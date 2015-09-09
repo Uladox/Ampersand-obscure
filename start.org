@@ -2,7 +2,7 @@
       AN OBSCURE REFERENCE
            by Uladox
 
-     [[./emacs-icon.png]] 
+ [[./ampersand.png]]
 Click on link or press "C-c C-o" 
 on it to enter [[elisp:(org-sbe startup)][Ampersand Obscure]].
 
@@ -10,8 +10,11 @@ Write yes on the yes or no prompt(s)
 and "%" for what the comment should
 be defined as.
 
+This sets up the required states for
+the reference and begin it.
+
 * The inner workings of this page
-#+STARTUP: hideblocks inlineimages
+#+STARTUP: hideblocks inlineimages entitiespretty
 (org-toggle-inline-images)
 
 #+name: startup
@@ -87,4 +90,10 @@ be defined as.
   }
 #+end_src
 
+#+name: appear
+#+begin_src emacs-lisp :results output silent
+(insert "hello world!")
+#+end_src
+
+#+CALL: appear()
 [[http://emacs.stackexchange.com/questions/2483/referring-to-the-org-babel-src-block-name-from-within-the-script][For more on org blocks]]
